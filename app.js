@@ -1,8 +1,9 @@
 const express = require('express');
 const logger = require('morgan');
 const dotenv = require("dotenv");
-
 const app = express();
+
+const chatRoute = require('./routes/chat');
 
 dotenv.config();
 
@@ -17,5 +18,7 @@ app.get('/', (req, res) => {
     console.log('test is successfull');
     res.send('Connected!');
 });
+
+app.use('/chat', chatRoute);
 
 module.exports = app;
