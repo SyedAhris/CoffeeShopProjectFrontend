@@ -1,18 +1,21 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const logger = require('morgan');
+const dotenv = require("dotenv");
 
-var indexRouter = require('./routes/index');
+const app = express();
 
-var app = express();
+dotenv.config();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.listen(process.env.PORT || process.env.PORT_NO, () => {
+    console.log('Backend running at: ', process.env.PORT_NO);
+});
+
+app.get('/', (req, res) => {
+    console.log('test is successfull');
+    res.send('Connected!');
+});
 
 module.exports = app;
